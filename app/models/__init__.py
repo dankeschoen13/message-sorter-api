@@ -1,1 +1,1 @@
-from .models import Messages
+from .models import Message

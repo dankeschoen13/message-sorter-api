@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
-from app.services.gemini import categorize_message
+from app.services import categorize_message
+from app.models import Message
 
 main_bp = Blueprint('main', __name__)
 
