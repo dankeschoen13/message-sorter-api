@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services import categorize_message
-from app.models import Message
+from app.services import categorize_message, MessageSvc
 
 main_bp = Blueprint('main', __name__)
 
@@ -15,17 +14,29 @@ def handle_inbound_message():
 
     user_email = data['email']
     message_content = data['message']
+    used_ai = False
 
     # Content Validation: Check if the message actually contains text
     if str(message_content).strip():
         category = categorize_message(message_content)
+        used_ai = True
     else:
         category = "Uncategorized"
 
-    # TODO: Add db logic here.
+    try:
+        new_msg = MessageSvc.new_message(
+            email=user_email,
+            content=message_content,
+            category=category,
+            ai_processed=used_ai
+        )
+    except ValueError:
+        return jsonify({"error": "Internal Server Error. Could not save message."}), 500
+
 
     return jsonify({
         "status": "success",
         "email": user_email,
-        "assigned_category": category
+        "assigned_category": category,
+        "ai_processed": used_ai
     }), 200
