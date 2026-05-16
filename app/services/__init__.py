@@ -1,2 +1,2 @@
-from .service import Service
+from .gemini import categorize_message
 
