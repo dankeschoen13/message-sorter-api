@@ -4,10 +4,12 @@ from enum import Enum
 
 
 class AICategory(str, Enum):
+
     TECHNICAL_SUPPORT = "Technical Support"
     SALES = "Sales"
     BILLING = "Billing"
     UNCATEGORIZED = "Uncategorized"
+    PENDING_RETRY = "Pending Retry"
 
 def categorize_message(message_text):
     client = genai.Client()
@@ -29,4 +31,4 @@ def categorize_message(message_text):
         return (response.text or "").strip()
     except Exception as e:
         print(f"Gemini API Error: {e}")
-        return "Uncategorized"
+        return AICategory.PENDING_RETRY.value

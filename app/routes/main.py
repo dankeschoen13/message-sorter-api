@@ -19,9 +19,12 @@ def handle_inbound_message():
     # Content Validation: Check if the message actually contains text
     if str(message_content).strip():
         category = categorize_message(message_content)
-        used_ai = True
+        if category == 'Pending Retry':
+            used_ai = False
+        else:
+            used_ai = True
     else:
-        category = "Uncategorized"
+        category = 'Uncategorized'
 
     try:
         new_msg = MessageSvc.new_message(
