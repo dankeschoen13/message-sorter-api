@@ -1,3 +1,3 @@
-from .gemini import categorize_message
+from .gemini import categorize_message, AICategory
 from .services import MessageSvc
 

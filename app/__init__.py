@@ -13,4 +13,7 @@ def create_app(config_class=Config):
     from app.routes import main_bp
     app.register_blueprint(main_bp)
 
+    from app.cli import retry_ai_command
+    app.cli.add_command(retry_ai_command)  # type: ignore
+
     return app
