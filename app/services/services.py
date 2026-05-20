@@ -36,7 +36,7 @@ class MessageSvc:
         return new_msg
 
     @classmethod
-    def fetch_pending(cls) -> list[Message]:
+    def fetch_pending_categorization(cls) -> list[Message]:
 
         stmt = cls._active_messages_query().where(
             Message.category == AICategory.PENDING_RETRY.value

@@ -9,7 +9,7 @@ def retry_ai_command():
     """Finds all PENDING_RETRY messages and runs them through Gemini again."""
 
     # 1. Fetch via Service Layer
-    pending_messages = MessageSvc.fetch_pending()
+    pending_messages = MessageSvc.fetch_pending_categorization()
 
     if not pending_messages:
         click.echo("No pending messages to retry. Exiting.")
