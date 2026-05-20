@@ -6,7 +6,7 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.post('/api/v1/inbound-message')
 def handle_inbound_message():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
 
     # Structural Validation: Ensure the payload structure is correct
     if not data or 'message' not in data or 'email' not in data:
